@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-
+#include <memory>
 // Abstract base class
 class Circle {
 protected:
@@ -84,7 +84,40 @@ public:
 
 int main() {
     // sandbox for playing with objects
+    int choice;
+    std::unique_ptr<Circle> object;
+    std::cout << "Select an object: \n1. Cylinder \n2. Cone \n3. Sphere" << std::endl;
+    std::cin >> choice;
+    if (choice == 1) {
+        double cylRadius;
+        double cylHeight;
+        std::cout << "Enter the radius: ";
+        std::cin >> cylRadius;
+        std::cout << "Enter the height: ";
+        std::cin >> cylHeight;
+        object = std::make_unique<Cylinder>(cylRadius, cylHeight);
+    }
+    else if (choice == 2) {
+        double coneRadius;
+        double coneHeight;
+        std::cout << "Enter cone radius";
+        std::cin >> coneRadius;
+        std::cout << "Enter cone height";
+        std::cin >> coneHeight;
+        object = std::make_unique<Cone>(coneRadius, coneHeight);
+    }
+    else if (choice == 3) {
+        double sphRadius;
+        std::cout << "Enter sphere radius: ";
+        std::cin >> sphRadius;
+        object = std::make_unique<Sphere>(sphRadius);
+    }
+    else {
+        std::cout << "Wrong choice" << std::endl;
+    }
 
+    object->calcVolume();
+    std::cout << object->getVolume() << std::endl;
 
     return 0;
 }
